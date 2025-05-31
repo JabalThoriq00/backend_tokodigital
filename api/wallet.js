@@ -1,6 +1,99 @@
 import db from '../models/index.js';
 import { authenticate } from '../middleware/auth.js';
 
+/**
+ * @swagger
+ * /api/wallet?action=balance:
+ *   get:
+ *     summary: Mendapatkan informasi saldo wallet user yang terautentikasi
+ *     tags:
+ *       - Wallet
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Informasi saldo berhasil diambil
+ *       404:
+ *         description: Wallet tidak ditemukan
+ */
+
+/**
+ * @swagger
+ * /api/wallet?action=transactions:
+ *   get:
+ *     summary: Mendapatkan daftar transaksi wallet user
+ *     tags:
+ *       - Wallet
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Daftar transaksi berhasil diambil
+ */
+
+/**
+ * @swagger
+ * /api/wallet?action=withdraw:
+ *   post:
+ *     summary: Melakukan penarikan dana dari wallet user
+ *     tags:
+ *       - Wallet
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - amount
+ *               - description
+ *             properties:
+ *               amount:
+ *                 type: number
+ *               description:
+ *                 type: string
+ *     responses:
+ *       201:
+ *         description: Penarikan tercatat
+ *       400:
+ *         description: Saldo tidak mencukupi
+ *       404:
+ *         description: Wallet tidak ditemukan
+ */
+
+/**
+ * @swagger
+ * /api/wallet?action=topup:
+ *   post:
+ *     summary: Melakukan top-up ke wallet user
+ *     tags:
+ *       - Wallet
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - amount
+ *               - description
+ *             properties:
+ *               amount:
+ *                 type: number
+ *               description:
+ *                 type: string
+ *     responses:
+ *       201:
+ *         description: Top-up tercatat
+ *       404:
+ *         description: Wallet tidak ditemukan
+ */
+
+
 export default async function handler(req, res) {
   const { method } = req;
   const action = req.query.action; // 'balance', 'transactions', 'withdraw', 'topup'

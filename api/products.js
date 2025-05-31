@@ -1,6 +1,163 @@
 import db from '../models/index.js';
 import { authenticate } from '../middleware/auth.js';
 
+/**
+ * @swagger
+ * /api/products?action=my:
+ *   get:
+ *     summary: Mendapatkan daftar produk milik user yang terautentikasi lengkap dengan metrik
+ *     tags:
+ *       - Products
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Daftar produk ditemukan
+ */
+
+/**
+ * @swagger
+ * /api/products?action=list:
+ *   get:
+ *     summary: Mendapatkan katalog produk publik (maksimal 50)
+ *     tags:
+ *       - Products
+ *     responses:
+ *       200:
+ *         description: Daftar produk publik ditemukan
+ */
+
+/**
+ * @swagger
+ * /api/products?action=detail&id={id}:
+ *   get:
+ *     summary: Mendapatkan detail produk publik berdasarkan ID
+ *     tags:
+ *       - Products
+ *     parameters:
+ *       - name: id
+ *         in: query
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: Detail produk ditemukan
+ *       404:
+ *         description: Produk tidak ditemukan
+ */
+
+/**
+ * @swagger
+ * /api/products?action=view:
+ *   post:
+ *     summary: Mencatat kunjungan produk
+ *     tags:
+ *       - Products
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - product_id
+ *               - viewer_ip
+ *               - user_agent
+ *             properties:
+ *               product_id:
+ *                 type: integer
+ *               viewer_ip:
+ *                 type: string
+ *               user_agent:
+ *                 type: string
+ *     responses:
+ *       201:
+ *         description: Kunjungan tercatat
+ */
+
+/**
+ * @swagger
+ * /api/products?action=click:
+ *   post:
+ *     summary: Mencatat klik produk
+ *     tags:
+ *       - Products
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - product_id
+ *               - source_page
+ *               - visitor_ip
+ *               - user_agent
+ *             properties:
+ *               product_id:
+ *                 type: integer
+ *               source_page:
+ *                 type: string
+ *               visitor_ip:
+ *                 type: string
+ *               user_agent:
+ *                 type: string
+ *     responses:
+ *       201:
+ *         description: Klik tercatat
+ */
+
+/**
+ * @swagger
+ * /api/products?action=purchase:
+ *   post:
+ *     summary: Mencatat pembelian produk
+ *     tags:
+ *       - Products
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - product_id
+ *               - buyer_user_id
+ *               - buyer_email
+ *               - purchase_price
+ *               - download_url
+ *             properties:
+ *               product_id:
+ *                 type: integer
+ *               buyer_user_id:
+ *                 type: integer
+ *               buyer_email:
+ *                 type: string
+ *               purchase_price:
+ *                 type: number
+ *               download_url:
+ *                 type: string
+ *     responses:
+ *       201:
+ *         description: Pembelian berhasil dicatat
+ */
+
+/**
+ * @swagger
+ * /api/products?action=my-purchases:
+ *   get:
+ *     summary: Mendapatkan daftar pembelian produk oleh user
+ *     tags:
+ *       - Products
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Daftar pembelian ditemukan
+ */
+
+
 export default async function handler(req, res) {
   const { method } = req;
   const action = req.query.action; // 'list', 'detail', 'view', 'click', 'purchase', 'my', 'my-purchases'

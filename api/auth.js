@@ -3,6 +3,85 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import 'dotenv/config';
 
+/**
+ * @swagger
+ * /api/auth?action=register:
+ *   post:
+ *     summary: Register user baru
+ *     tags:
+ *       - Auth
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - username
+ *               - email
+ *               - password
+ *             properties:
+ *               username:
+ *                 type: string
+ *               email:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *     responses:
+ *       201:
+ *         description: Registrasi berhasil
+ *       400:
+ *         description: Request tidak valid
+ *       500:
+ *         description: Server error
+ */
+
+/**
+ * @swagger
+ * /api/auth?action=login:
+ *   post:
+ *     summary: Login user
+ *     tags:
+ *       - Auth
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - email
+ *               - password
+ *             properties:
+ *               email:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Login berhasil
+ *       400:
+ *         description: Email atau password salah
+ *       500:
+ *         description: Server error
+ */
+
+/**
+ * @swagger
+ * /api/auth:
+ *   get:
+ *     summary: Ambil profil user berdasarkan token
+ *     tags:
+ *       - Auth
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Profil user berhasil diambil
+ *       401:
+ *         description: Token tidak valid
+ */
+
 export default async function handler(req, res) {
   const { method } = req;
 

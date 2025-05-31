@@ -1,6 +1,167 @@
 import db from '../models/index.js';
 import { authenticate } from '../middleware/auth.js';
 
+/**
+ * @swagger
+ * /api/bio?route=theme:
+ *   get:
+ *     summary: Mendapatkan tema bio user berdasarkan username
+ *     tags:
+ *       - Bio
+ *     parameters:
+ *       - name: username
+ *         in: query
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Tema bio ditemukan
+ *       404:
+ *         description: User tidak ditemukan
+ */
+
+/**
+ * @swagger
+ * /api/bio?route=theme:
+ *   post:
+ *     summary: Menyimpan tema bio baru untuk user yang terautentikasi
+ *     tags:
+ *       - Bio
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - theme_name
+ *               - config_json
+ *             properties:
+ *               theme_name:
+ *                 type: string
+ *               config_json:
+ *                 type: object
+ *     responses:
+ *       201:
+ *         description: Tema bio disimpan
+ */
+
+/**
+ * @swagger
+ * /api/bio?route=link:
+ *   get:
+ *     summary: Mendapatkan daftar link bio publik berdasarkan username
+ *     tags:
+ *       - Bio
+ *     parameters:
+ *       - name: username
+ *         in: query
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Daftar link bio ditemukan
+ *       404:
+ *         description: User tidak ditemukan
+ */
+
+/**
+ * @swagger
+ * /api/bio?route=link:
+ *   post:
+ *     summary: Menambahkan link bio untuk user terautentikasi
+ *     tags:
+ *       - Bio
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - title
+ *               - url
+ *             properties:
+ *               title:
+ *                 type: string
+ *               url:
+ *                 type: string
+ *               thumbnail:
+ *                 type: string
+ *               sort_order:
+ *                 type: integer
+ *     responses:
+ *       201:
+ *         description: Link bio dibuat
+ *       400:
+ *         description: Validasi gagal
+ */
+
+/**
+ * @swagger
+ * /api/bio?route=link&id={id}:
+ *   put:
+ *     summary: Mengedit link bio milik user
+ *     tags:
+ *       - Bio
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - name: id
+ *         in: query
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     requestBody:
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               title:
+ *                 type: string
+ *               url:
+ *                 type: string
+ *               thumbnail:
+ *                 type: string
+ *               sort_order:
+ *                 type: integer
+ *               is_active:
+ *                 type: boolean
+ *     responses:
+ *       200:
+ *         description: Link bio diupdate
+ *       404:
+ *         description: Link tidak ditemukan
+ */
+
+/**
+ * @swagger
+ * /api/bio?route=public:
+ *   get:
+ *     summary: Mendapatkan semua data publik (profile, theme, links) user
+ *     tags:
+ *       - Bio
+ *     parameters:
+ *       - name: username
+ *         in: query
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Data publik user ditemukan
+ *       404:
+ *         description: User tidak ditemukan
+ */
+
+
 export default async function handler(req, res) {
   const { method } = req;
   const route = req.query.route; // 'theme', 'link', atau 'public'

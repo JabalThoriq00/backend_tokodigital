@@ -1,6 +1,77 @@
 import db from '../models/index.js';
 import { authenticate } from '../middleware/auth.js';
 
+/**
+ * @swagger
+ * /api/affiliate?action=my:
+ *   get:
+ *     summary: Mendapatkan daftar produk affiliate milik user
+ *     tags:
+ *       - Affiliate
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Daftar affiliate product user
+ *       401:
+ *         description: Unauthorized
+ */
+
+/**
+ * @swagger
+ * /api/affiliate?action=toggle:
+ *   post:
+ *     summary: Tambah atau update affiliate product milik user
+ *     tags:
+ *       - Affiliate
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - product_id
+ *               - commission_rate
+ *             properties:
+ *               product_id:
+ *                 type: integer
+ *               commission_rate:
+ *                 type: number
+ *               is_active:
+ *                 type: boolean
+ *     responses:
+ *       200:
+ *         description: Affiliate product diupdate
+ *       201:
+ *         description: Affiliate product dibuat
+ *       401:
+ *         description: Unauthorized
+ */
+
+/**
+ * @swagger
+ * /api/affiliate?action=list:
+ *   get:
+ *     summary: Mendapatkan daftar affiliate untuk produk tertentu
+ *     tags:
+ *       - Affiliate
+ *     parameters:
+ *       - name: product_id
+ *         in: query
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: Daftar affiliate aktif untuk produk
+ *       400:
+ *         description: Request tidak valid
+ */
+
+
 export default async function handler(req, res) {
   const { method } = req;
   const action = req.query.action; // 'list', 'my', 'toggle'
