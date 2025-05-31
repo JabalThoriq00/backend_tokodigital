@@ -1,0 +1,31 @@
+lynk-backend-vercel/
+├── api/
+│   ├── auth.js
+│   ├── bio.js
+│   ├── products.js
+│   ├── wallet.js
+│   ├── affiliate.js
+│   └── common.js
+├── models/
+│   ├── index.js
+│   ├── user.js
+│   ├── bioTheme.js
+│   ├── bioLink.js
+│   ├── product.js
+│   ├── productView.js
+│   ├── productClick.js
+│   ├── productPurchase.js
+│   ├── wallet.js
+│   ├── walletTransaction.js
+│   ├── affiliateProduct.js
+│   ├── commissionDistribution.js
+│   └── (opsional: productCategory.js, productToCategory.js, productTag.js, productToTag.js)
+├── middleware/
+│   ├── auth.js
+│   └── errorHandler.js
+├── utils/
+│   └── validate.js
+├── .env.example
+├── package.json
+├── vercel.json
+└── README.md
